@@ -2,6 +2,10 @@
 
 This repository implements a **Retrieval-Augmented Generation (RAG)** pipeline that queries my completed coursework from Seneca Polytechnic's Computer Systems Technology (CTYC) program. It extracts, verifies, and formats high-fidelity resume bullets and cover letter narratives for my job applications.
 
+> [!NOTE]
+> **Companion Project to AI Job Search**:
+> This module is designed specifically to be used alongside the [AI Job Search](https://github.com/MadsLorentzen/ai-job-search) project created by Mads Lorentzen. In my job hunting setup, `ai-job-search` serves as the foundational multi-agent system for job scraping, application tracking, and LaTeX resume generation. This repository provides the live educational retrieval layer, allowing the application assistant to verify and ground claims against primary coursework materials.
+
 ---
 
 ## How It Works
@@ -52,7 +56,7 @@ flowchart TD
 
 ## Background & Rationale
 
-Prior to building this feature, resume tailoring during my job application workflow had access only to high-level course codes (e.g. `OPS245 (A)`, `MST200 (A+)`, `CSN205 (A)`). This led to generic descriptions of my education that failed to capture the deep hands-on technical labs I completed in class.
+In the base [AI Job Search](https://github.com/MadsLorentzen/ai-job-search) project, the `/apply` workflow evaluates job postings against candidate profile markdown files (`01-candidate-profile.md`) and generates tailored LaTeX CVs and cover letters. However, prior to building this RAG extension, the tailoring agent only had access to high-level course codes and grades (e.g. `OPS245 (A)`, `MST200 (A+)`, `CSN205 (A)`). This led to generic descriptions of my education that failed to capture the deep hands-on technical labs I completed in class.
 
 This pipeline connects directly to Google NotebookLM via ExtendLM MCP to query my **"Semester 1 and 2 CTY"** notebook (`e32153b2-e906-4762-a8c3-8b96fbf093b4`), which houses **133 primary sources**:
 - **My actual lab submissions**: `Lab 1 - Prelab.docx` through `Lab 10 - Azure Server Configuration.docx`
@@ -136,8 +140,8 @@ python3 rag_cli.py verify-job \
 ---
 
 ## Dedicated Workflow: `/rag-apply` (`cmd-rag-apply`)
-
-A dedicated workflow is integrated into my workspace to run the end-to-end two-agent application pipeline with live curriculum RAG:
+ 
+A dedicated workflow is integrated into my [AI Job Search](https://github.com/MadsLorentzen/ai-job-search) workspace to run the end-to-end two-agent application pipeline with live curriculum RAG:
 - **Canonical Specification**: `.claude/commands/rag-apply.md`
 - **Cross-Runtime Pointer Skill**: `.agents/skills/cmd-rag-apply/SKILL.md`
 
